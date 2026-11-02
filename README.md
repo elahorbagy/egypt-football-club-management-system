@@ -1,85 +1,117 @@
-# Egypt Football Club Management System
+<div align="center">
 
-A modern multi-tenant football club management system built for football clubs in Egypt.
+# ⚽ Egypt Football Club Management System
+### نظام إدارة الأندية الكروية المصرية
 
-The platform provides clubs with a centralized digital environment to manage players, teams, academies, coaches, medical records, memberships, registrations, contracts, salaries, equipment, and football statistics.
+**One platform. Multiple clubs. Isolated data. Centralized management.**
 
-The system is designed around a **Multi-Tenant Architecture**, allowing multiple football clubs to use the same platform while keeping their data completely isolated.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![NiceGUI](https://img.shields.io/badge/NiceGUI-UI-00C853?style=for-the-badge)](https://nicegui.io/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Multi-Tenant](https://img.shields.io/badge/Architecture-Multi--Tenant-C8102E?style=for-the-badge)](#-multi-tenant-architecture)
+[![RTL](https://img.shields.io/badge/UI-Arabic%20%7C%20RTL-F9A825?style=for-the-badge)](#-ui--ux)
+[![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen?style=for-the-badge)](#-development-status)
 
----
+<br>
 
-## Overview
+A modern, secure, **multi-tenant** platform that gives every Egyptian football club its own
+digital headquarters, covering players, teams, academies, medical, contracts, memberships and
+equipment, all under one roof and with **zero data leakage between clubs**.
 
-Managing football clubs involves a large amount of administrative, sporting, medical, and financial data.
+[Features](#-features) •
+[Architecture](#-multi-tenant-architecture) •
+[Roles](#-roles--permissions) •
+[Quick Start](#-quick-start) •
+[Roadmap](#-roadmap)
 
-The Egypt Football Club Management System brings these operations together in one platform.
-
-Each club has its own environment where authorized staff can manage:
-
-* Players
-* Teams
-* Academies
-* Coaches and technical staff
-* Medical records
-* Player registrations
-* Memberships
-* Contracts and salaries
-* Equipment
-* Player measurements
-* Football statistics
-
-A central **Super Admin** can manage the clubs registered on the platform and monitor aggregated platform statistics.
+</div>
 
 ---
 
-## Core Concept
+## 🇪🇬 نبذة بالعربية
 
-The platform is built around one simple concept:
+نظام متكامل لإدارة الأندية الكروية في مصر، مبني بمعمارية **متعددة العملاء (Multi-Tenant)**:
+منصة واحدة تخدم عدة أندية، وكل نادٍ له بياناته المعزولة تمامًا عن باقي الأندية.
+
+يشمل النظام: **اللاعبين، الفرق، الأكاديميات، الأجهزة الفنية، السجلات الطبية، العقود والرواتب،
+العضويات، القيد والتسجيل، المهمات الرياضية، والإحصائيات**، مع واجهة عربية كاملة (RTL) بخط **Cairo**
+ولوحات تحكم حديثة.
+
+---
+
+## 📑 Table of Contents
+
+- [Why This Project](#-why-this-project)
+- [Features](#-features)
+- [Multi-Tenant Architecture](#-multi-tenant-architecture)
+- [Roles & Permissions](#-roles--permissions)
+- [Core Modules](#-core-modules)
+- [Smart Player Eligibility](#-smart-player-eligibility)
+- [Dashboards](#-dashboards)
+- [Security](#-security)
+- [Database](#-database)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Quick Start](#-quick-start)
+- [Configuration](#-configuration)
+- [Development Status](#-development-status)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🎯 Why This Project
+
+Running a football club means juggling a huge amount of sporting, medical, administrative and
+financial data, usually scattered across spreadsheets, paper files and chat groups.
+
+This platform brings everything into **one system** where:
+
+- 🏟️ every club feels like it owns a **dedicated management system**
+- 🔒 data is **strictly isolated** per club, enforced in code and not only in the UI
+- 🧠 player status is **computed automatically** from registration, membership and medical data
+- 🌍 the whole experience is built for **Arabic-speaking** football organizations
+
+---
+
+## ✨ Features
+
+| | Module | What it gives you |
+|---|---|---|
+| 🏢 | **Club Management** | Arabic/English names, logo, activation control |
+| 👥 | **Teams** | First Team down to U10, rosters, coaches, seasons |
+| 🎓 | **Academies** | Branches, capacities, subscriptions, separate from competitive teams |
+| 🧑‍🎓 | **Players** | Full 360° profile: personal, sporting, medical, financial |
+| 🩺 | **Medical** | Examinations, injuries, eligibility, doctor notes |
+| 📝 | **Registrations & Memberships** | Status tracking with expiry awareness |
+| 💰 | **Contracts & Salaries** | Monthly/annual pay, bonuses, incentives, expiry |
+| 👕 | **Equipment & Measurements** | Kit sizes, assigned items, returns, condition |
+| 🧑‍🏫 | **Coaches & Staff** | Head/assistant/GK/fitness coaches, analysts, team assignment |
+| 📊 | **Dashboards & Stats** | Per-club and platform-wide analytics |
+| 🔎 | **Search & Filters** | Find any player in seconds by name, ID, team, status... |
+
+---
+
+## 🏗️ Multi-Tenant Architecture
 
 > **One platform. Multiple football clubs. Completely isolated data.**
 
-For example:
+```mermaid
+flowchart TB
+    SA["👑 Super Admin<br/>Platform Control"]
+    P(("Central<br/>Platform"))
+    SA --> P
 
-```text
-Central Platform
-│
-├── Super Admin
-│
-├── Al Ahly
-│   ├── Teams
-│   ├── Players
-│   ├── Academy
-│   ├── Coaches
-│   ├── Medical
-│   ├── Contracts
-│   ├── Memberships
-│   └── Equipment
-│
-├── Zamalek
-│   ├── Teams
-│   ├── Players
-│   ├── Academy
-│   ├── Coaches
-│   ├── Medical
-│   ├── Contracts
-│   ├── Memberships
-│   └── Equipment
-│
-└── Other Clubs
-    └── Independent Club Data
+    P --> A["🔴 Club A<br/>Users · Teams · Players<br/>Academy · Medical · Contracts"]
+    P --> B["⚪ Club B<br/>Users · Teams · Players<br/>Academy · Medical · Contracts"]
+    P --> C["🟢 Club N<br/>Independent Club Data"]
+
+    A -. "❌ no access" .- B
+    B -. "❌ no access" .- C
 ```
 
-The interface and platform remain centralized, while every club operates on its own isolated data.
-
----
-
-# Multi-Tenant Architecture
-
-Data isolation is one of the most important parts of the system.
-
-Every club-related record is associated with its club.
-
-For example:
+Every club-related record carries its **club identifier**:
 
 ```text
 Club
@@ -94,374 +126,96 @@ Club
  └── Equipment
 ```
 
-A club administrator can only access records belonging to their club.
-
-The isolation is enforced through the application's database queries and business logic rather than relying only on the user interface.
-
-This prevents users from accessing or modifying another club's data.
+**Isolation is enforced in the application's database queries and business logic**, not just by
+hiding things in the interface. A Club Admin physically cannot read or modify another club's
+records.
 
 ---
 
-# User Roles
+## 🔐 Roles & Permissions
 
-The system is designed to support different roles based on operational responsibilities.
-
-## Super Admin
-
-The central platform administrator.
-
-Main responsibilities:
-
-* Manage clubs
-* Create and manage club accounts
-* Activate or deactivate clubs
-* Access platform-wide statistics
-* Monitor registered clubs
-* Manage platform-level settings
+| Role | Scope | Responsibilities |
+|---|---|---|
+| 👑 **Super Admin** | Platform | Create/manage/activate/deactivate clubs, platform statistics and settings |
+| 🏛️ **Club Admin** | Own club | Full management of the club: teams, players, academies, staff, memberships, registrations, medical, contracts, equipment |
+| 🧑‍🏫 **Coach** | Assigned teams | View teams & players, positions, sporting info, monitor performance |
+| 🩺 **Medical Staff** | Medical data | Examinations, eligibility, injuries, measurements, health status |
+| 💼 **Finance** | Financial data | Contracts, salaries, bonuses, incentives, expiry tracking |
 
 ---
 
-## Club Admin
+## 🧩 Core Modules
 
-The administrator of an individual football club.
-
-Main responsibilities:
-
-* Manage club information
-* Manage teams
-* Manage players
-* Manage academies
-* Manage coaches
-* Manage memberships
-* Manage registrations
-* Manage medical information
-* Manage contracts
-* Manage equipment
-* View club statistics
-
-A Club Admin is restricted to their assigned club.
-
----
-
-## Coach
-
-Focused primarily on sporting operations.
-
-Possible responsibilities:
-
-* View assigned teams
-* View players
-* View sporting information
-* Manage team information
-* View player positions
-* Monitor player performance
-
----
-
-## Medical Staff
-
-Focused on player medical information.
-
-Possible responsibilities:
-
-* Medical examinations
-* Medical eligibility
-* Injury records
-* Physical measurements
-* Medical notes
-* Player health status
-
----
-
-## Finance
-
-Focused on financial operations.
-
-Possible responsibilities:
-
-* Player contracts
-* Salaries
-* Bonuses
-* Incentives
-* Contract status
-* Contract expiration
-
----
-
-# Club Management
-
-Each club has its own management environment.
-
-Club information can include:
-
-* Arabic and English club name
-* Club logo
-* Teams
-* Players
-* Academies
-* Coaches
-* Technical staff
-* Medical staff
-* Contracts
-* Registrations
-* Equipment
-* Statistics
-
-The goal is for each club to feel like it has its own dedicated management system while still operating within the central platform.
-
----
-
-# Team Management
-
-The system supports different football teams and age categories.
-
-Typical categories include:
+### 👥 Teams & Age Categories
 
 ```text
-First Team
-U23
-U21
-U19
-U18
-U17
-U16
-U15
-U14
-U13
-U12
-U10
+First Team · U23 · U21 · U19 · U18 · U17 · U16 · U15 · U14 · U13 · U12 · U10
 ```
 
-Each team can contain:
+Each team has: name, category, season, player count, max roster size, head coach,
+assistant coaches and status. Categories are extensible per club.
 
-* Team name
-* Age category
-* Season
-* Player count
-* Maximum roster size
-* Head coach
-* Assistant coaches
-* Team status
+### 🎓 Academies
 
-The structure can also be extended with additional categories when required by a club.
+Academy name · branch · age category · coach · player count · capacity · subscription status.
 
----
+Academies are modeled **separately from competitive teams**, because capacity and management
+rules are different.
 
-# Football Academies
+### 🧑‍🎓 Players
 
-Clubs can manage multiple football academies and academy branches.
+<details>
+<summary><b>Personal information</b></summary>
 
-Academy information can include:
+Full name · National ID · Date of birth · Calculated age · Gender · Phone · Email · Address · Marital status
 
-* Academy name
-* Branch
-* Age category
-* Coach
-* Player count
-* Capacity
-* Subscription status
-* Player information
+</details>
 
-Academies are handled separately from competitive teams because their player capacity and management requirements can be different.
+<details>
+<summary><b>Sporting information</b></summary>
 
----
+Club · Team · Age category · Position · Preferred foot · Level · Years of experience · Joining date · Status
 
-# Player Management
+**Preferred foot:** `Right` · `Left` · `Both`
 
-The player module is one of the core components of the platform.
+**Positions:**
+`Goalkeeper` · `Center Back` · `Right Back` · `Left Back` · `Defensive Midfielder` ·
+`Central Midfielder` · `Attacking Midfielder` · `Right Winger` · `Left Winger` · `Striker`
 
-Each player can have a complete profile containing personal, sporting, administrative, medical, and financial information.
+</details>
 
-## Personal Information
+<details>
+<summary><b>Classification & development path</b></summary>
 
-* Full name
-* National ID
-* Date of birth
-* Calculated age
-* Gender
-* Phone number
-* Email
-* Address
-* Marital status
+`First Team` · `Youth Team` · `Academy` · `Amateur` · `Practitioner`
 
-## Sporting Information
-
-* Club
-* Team
-* Age category
-* Position
-* Preferred foot
-* Player level
-* Years of experience
-* Joining date
-* Player status
-
-### Preferred Foot
-
-```text
-Right
-Left
-Both
+```mermaid
+flowchart LR
+    A[Academy] --> B[U15] --> C[U17] --> D[U21] --> E[First Team]
 ```
 
-### Football Positions
+Historical team and registration records preserve the player's full development history.
 
-```text
-Goalkeeper
-Center Back
-Right Back
-Left Back
-Defensive Midfielder
-Central Midfielder
-Attacking Midfielder
-Right Winger
-Left Winger
-Striker
-```
+</details>
 
----
+### 📋 Statuses at a glance
 
-# Player Classification
+| Type | Values |
+|---|---|
+| **Registration** | Registered · Not Registered · Pending · Suspended · Expired |
+| **Membership** | Active · Expired · Suspended · Pending · Cancelled |
+| **Player** | Active · Injured · Suspended · Transferred · Retired |
+| **Medical** | Passed · Failed · Pending |
 
-Players can be organized according to their sporting level and development stage.
+### 🩺 Medical
 
-Examples:
+Examination date, type and result · medical status · injuries · physical measurements ·
+doctor notes · responsible doctor · medical eligibility.
+Medical data is kept **separate** from general player information.
 
-```text
-First Team
-Youth Team
-Academy
-Amateur
-Practitioner
-```
+### 💰 Contracts & Salaries
 
-A player's progression can be tracked over time:
-
-```text
-Academy
-   ↓
-U15
-   ↓
-U17
-   ↓
-U21
-   ↓
-First Team
-```
-
-Historical team and registration records can be used to maintain the player's development history.
-
----
-
-# Registration & Membership
-
-The system tracks the administrative status of players.
-
-## Registration Status
-
-```text
-Registered
-Not Registered
-Pending
-Suspended
-Expired
-```
-
-## Membership Status
-
-```text
-Active
-Expired
-Suspended
-Pending
-Cancelled
-```
-
-## Player Status
-
-```text
-Active
-Injured
-Suspended
-Transferred
-Retired
-```
-
-These statuses can be used together to determine the player's current administrative and sporting situation.
-
----
-
-# Medical Management
-
-Medical information is maintained separately from general player information.
-
-Medical records can include:
-
-* Examination date
-* Examination type
-* Examination result
-* Medical status
-* Injuries
-* Physical measurements
-* Medical notes
-* Responsible doctor
-* Medical eligibility
-
-Example medical states:
-
-```text
-Passed
-Failed
-Pending
-```
-
----
-
-# Player Eligibility
-
-The system can calculate player eligibility using multiple conditions.
-
-For example:
-
-```text
-Registration: Registered
-Membership: Active
-Medical Status: Passed
-
-Eligibility: Eligible
-```
-
-If one of the required conditions is not satisfied:
-
-```text
-Registration: Registered
-Membership: Active
-Medical Status: Failed
-
-Eligibility: Not Eligible
-```
-
-The system can also display the reason for the player's ineligibility.
-
----
-
-# Contracts & Salaries
-
-The financial module manages player contracts and compensation.
-
-Contract information can include:
-
-* Contract type
-* Start date
-* End date
-* Monthly salary
-* Annual salary
-* Maximum salary
-* Bonuses
-* Incentives
-* Contract status
-
-Example:
+Contract type · start/end dates · monthly, annual and maximum salary · bonuses · incentives · status.
 
 ```text
 First Team Player    | 50,000 EGP / Month
@@ -469,402 +223,262 @@ U21 Player           | 15,000 EGP / Month
 Academy Player       | No Salary
 ```
 
-This information can also be used for financial statistics and reporting.
+### 👕 Measurements & Equipment
 
----
-
-# Player Measurements
-
-The system supports sportswear and physical measurement management.
-
-Information can include:
-
-* Shirt size
-* Shorts size
-* Jacket size
-* Shoe size
-* Height
-* Weight
-* Body measurements
-* Other equipment measurements
-
-This helps clubs manage player equipment more efficiently.
-
----
-
-# Equipment Management
-
-The equipment module tracks items assigned to players.
-
-Equipment records can include:
-
-* Equipment name
-* Equipment type
-* Quantity
-* Delivery date
-* Return date
-* Condition
-
-Example:
+- **Measurements:** shirt, shorts, jacket and shoe sizes, height, weight, body measurements.
+- **Equipment:** item name/type, quantity, delivery date, return date, condition.
 
 ```text
-2 × Match Shirts
-1 × Football Boots
-1 × Training Suit
-2 × Shorts
+2 × Match Shirts   ·   1 × Football Boots   ·   1 × Training Suit   ·   2 × Shorts
 ```
 
-The system can maintain the relationship between players and their assigned equipment.
+### 🧑‍🏫 Coaches & Technical Staff
+
+Head Coach · Assistant Coach · Goalkeeper Coach · Fitness Coach · Performance Analyst · Medical Staff,
+each linked to specific teams and responsibilities.
 
 ---
 
-# Coaches & Technical Staff
+## ✅ Smart Player Eligibility
 
-Clubs can manage coaching and technical staff across their teams.
+Eligibility is **calculated**, not typed in by hand. The system combines registration, membership
+and medical state, and explains the reason when a player is blocked.
 
-Examples include:
-
-* Head Coach
-* Assistant Coach
-* Goalkeeper Coach
-* Fitness Coach
-* Performance Analyst
-* Medical Staff
-
-Staff members can be associated with specific teams and responsibilities.
-
----
-
-# Club Dashboard
-
-Each club has a dedicated dashboard showing important operational statistics.
-
-Examples include:
-
-* Total players
-* First-team players
-* Youth players
-* Academy players
-* Number of teams
-* Number of coaches
-* Registered players
-* Active memberships
-* Medical examination statistics
-* Eligible players
-* Ineligible players
-* Injured players
-* Monthly salaries
-* Annual salaries
-
----
-
-# Football Statistics
-
-The platform is designed to provide football-specific statistics such as:
-
-* Players by position
-* Players by team
-* Players by age category
-* Goalkeepers
-* Defenders
-* Midfielders
-* Wingers
-* Strikers
-* Player distribution
-* Team roster statistics
-
-Future versions can expand this area into detailed performance analytics.
-
----
-
-# Super Admin Dashboard
-
-The Super Admin dashboard provides a centralized view of the platform.
-
-It can include:
-
-* Total clubs
-* Total players
-* Total teams
-* Total academies
-* Total coaches
-* Players by club
-* Players by age category
-* Players by position
-* Registration statistics
-* Membership statistics
-* Medical statistics
-* Salary statistics
-* Average salaries
-
-The Super Admin can monitor the platform without compromising individual club data isolation.
-
----
-
-# Search & Filtering
-
-The player management interface supports advanced search and filtering.
-
-Possible filters include:
-
-* Player name
-* National ID
-* Team
-* Age
-* Position
-* Registration status
-* Membership status
-* Medical status
-* Eligibility
-
-This allows club staff to quickly find the information they need.
-
----
-
-# Security
-
-Security and data isolation are core requirements of the system.
-
-The application is designed to ensure that:
-
-1. Users can only access data permitted by their role.
-2. Club administrators cannot access another club's records.
-3. Club-related data is associated with the correct club.
-4. Database queries use parameterized values.
-5. Permission checks are performed before administrative operations.
-6. Sensitive credentials are not stored directly in source code.
-7. Passwords are securely hashed.
-8. Business logic enforces tenant isolation.
-
----
-
-# Database
-
-The project uses SQLite as its current database engine.
-
-The database is organized around lookup tables and relational entities covering areas such as:
+```mermaid
+flowchart LR
+    R{"Registration<br/>= Registered?"} -->|yes| M{"Membership<br/>= Active?"}
+    R -->|no| X["❌ Not Eligible<br/>reason: registration"]
+    M -->|yes| D{"Medical<br/>= Passed?"}
+    M -->|no| Y["❌ Not Eligible<br/>reason: membership"]
+    D -->|yes| OK["✅ Eligible"]
+    D -->|no| Z["❌ Not Eligible<br/>reason: medical"]
+```
 
 ```text
-Club
-User
-Player
-Team
-Sport
-Team Category
-Tournament
-Membership
-Medical
-Guardian
-Equipment
-Contracts
-Registrations
-Player-Team Relationships
+Registration: Registered   Membership: Active   Medical: Passed  →  ✅ Eligible
+Registration: Registered   Membership: Active   Medical: Failed  →  ❌ Not Eligible (medical)
 ```
 
-Foreign-key relationships are used to maintain data integrity between related entities.
+---
+
+## 📊 Dashboards
+
+### 🏛️ Club Dashboard
+Total players · first-team / youth / academy players · teams · coaches · registered players ·
+active memberships · medical statistics · eligible vs. ineligible · injured players ·
+monthly and annual salaries.
+
+### 👑 Super Admin Dashboard
+Total clubs, players, teams, academies and coaches · players by club / age category / position ·
+registration, membership, medical and salary statistics · average salaries, all **without
+exposing any individual club's private data**.
+
+### ⚽ Football Statistics
+Players by position, team and age category · goalkeepers, defenders, midfielders, wingers,
+strikers · roster distribution and team roster statistics.
 
 ---
 
-# Technology Stack
+## 🔎 Search & Filtering
 
-The project is built with:
-
-* Python
-* NiceGUI
-* SQLite
-* SQL
-* HTML/CSS
-* Git
-* GitHub
-
-The interface is designed specifically for Arabic-speaking football organizations and uses:
-
-* RTL layout
-* Arabic interface
-* Cairo font
-* Responsive components
-* Modern dashboards
-* Searchable tables
-* Statistics cards
-* Football-oriented visual design
+Filter players by **name · National ID · team · age · position · registration status ·
+membership status · medical status · eligibility**.
 
 ---
 
-# Project Structure
+## 🛡️ Security
+
+| # | Principle |
+|---|---|
+| 1 | Role-based access: users only see what their role permits |
+| 2 | Club Admins can never reach another club's records |
+| 3 | Every club-related record is bound to the correct club |
+| 4 | **Parameterized SQL queries** everywhere |
+| 5 | Permission checks run **before** administrative operations |
+| 6 | No credentials in source code |
+| 7 | Passwords are securely **hashed** |
+| 8 | Tenant isolation enforced in **business logic**, not just the UI |
+
+---
+
+## 🗄️ Database
+
+SQLite today, organized around lookup tables and relational entities with foreign keys for
+integrity.
+
+```text
+Club · User · Player · Team · Sport · Team Category · Tournament · Membership
+Medical · Guardian · Equipment · Contracts · Registrations · Player-Team Relationships
+```
+
+```mermaid
+erDiagram
+    CLUB ||--o{ USER : has
+    CLUB ||--o{ TEAM : owns
+    CLUB ||--o{ PLAYER : registers
+    TEAM ||--o{ PLAYER_TEAM : includes
+    PLAYER ||--o{ PLAYER_TEAM : plays_in
+    PLAYER ||--o{ MEMBERSHIP : holds
+    PLAYER ||--o{ MEDICAL : examined
+    PLAYER ||--o{ CONTRACT : signs
+    PLAYER ||--o{ EQUIPMENT : receives
+    PLAYER ||--o{ GUARDIAN : has
+    TEAM_CATEGORY ||--o{ TEAM : classifies
+```
+
+> The diagram is a simplified overview. See `database.py` for the full schema.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Python |
+| UI Framework | NiceGUI |
+| Database | SQLite + SQL |
+| Frontend | HTML / CSS |
+| Version Control | Git & GitHub |
+
+### 🎨 UI & UX
+RTL layout · full Arabic interface · **Cairo** font · responsive components · modern dashboards ·
+searchable tables · statistics cards · football-oriented visual design.
+
+---
+
+## 📁 Project Structure
 
 ```text
 egypt-football-club-management/
 │
-├── main.py
-├── database.py
-├── business_logic.py
-├── theme.py
+├── main.py                 # App entry point
+├── database.py             # Schema & data access
+├── business_logic.py       # Rules, eligibility, tenant isolation
+├── theme.py                # Colors, fonts, RTL styling
 ├── requirements.txt
-├── README.md
-├── .gitignore
 ├── run.bat
 │
-├── components/
-│   ├── __init__.py
+├── components/             # Reusable UI building blocks
 │   ├── cards.py
 │   ├── layout.py
 │   └── tables.py
 │
-└── pages/
-    ├── __init__.py
-    ├── landing.py
-    ├── login_page.py
-    ├── dashboard_page.py
-    ├── clubs_page.py
-    ├── teams_page.py
-    ├── players_page.py
-    ├── academies_page.py
-    ├── coaches_page.py
-    ├── medical_page.py
-    ├── contracts_page.py
-    ├── registrations_page.py
-    ├── memberships_page.py
-    ├── equipment_page.py
-    └── statistics_page.py
+└── pages/                  # One file per module
+    ├── landing.py          ├── login_page.py        ├── dashboard_page.py
+    ├── clubs_page.py       ├── teams_page.py        ├── players_page.py
+    ├── academies_page.py   ├── coaches_page.py      ├── medical_page.py
+    ├── contracts_page.py   ├── registrations_page.py├── memberships_page.py
+    ├── equipment_page.py   └── statistics_page.py
 ```
-
-The structure may evolve as new modules are added.
 
 ---
 
-# Installation
-
-## Clone the Repository
+## 🚀 Quick Start
 
 ```bash
+# 1. Clone
 git clone https://github.com/YOUR_USERNAME/egypt-football-club-management.git
 cd egypt-football-club-management
-```
 
-## Create a Virtual Environment
-
-Windows:
-
-```bash
+# 2. Virtual environment (Windows)
 python -m venv venv
 venv\Scripts\activate
-```
 
-## Install Dependencies
-
-```bash
+# 3. Install
 pip install -r requirements.txt
-```
 
-## Run the Application
-
-```bash
+# 4. Run
 python main.py
 ```
 
-The application runs by default on:
+Open 👉 **http://localhost:8080**
 
-```text
-http://localhost:8080
-```
+> On Windows you can also just double-click `run.bat`.
 
 ---
 
-# Configuration
+## ⚙️ Configuration
 
-Production configuration should be stored outside the source code.
+Keep secrets **outside** the source code, using environment variables:
 
-Recommended environment variables include:
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Database location |
+| `SECRET_KEY` | Application secret |
+| `STORAGE_SECRET` | Session storage secret |
 
-```text
-DATABASE_URL
-SECRET_KEY
-STORAGE_SECRET
-```
-
-Never commit production credentials, passwords, API keys, or secret keys to GitHub.
+> ⚠️ **Never** commit passwords, API keys or secret keys to GitHub.
 
 ---
 
-# Development Status
+## 🚧 Development Status
 
-The project is currently under active development.
-
-### Completed / In Progress
-
-* [x] Authentication
-* [x] Multi-tenant architecture concept
-* [x] Club management
-* [x] Dashboard
-* [x] Team management
-* [x] Player management foundation
-* [x] Membership management
-* [ ] Complete academy management
-* [ ] Complete coach management
-* [ ] Complete medical management
-* [ ] Complete contract management
-* [ ] Registration management
-* [ ] Equipment management
-* [ ] Advanced statistics
-* [ ] Complete role-based permissions
-* [ ] Audit logging
-* [ ] Production deployment
+- [x] Authentication
+- [x] Multi-tenant architecture
+- [x] Club management
+- [x] Dashboard
+- [x] Team management
+- [x] Player management foundation
+- [x] Membership management
+- [ ] Complete academy management
+- [ ] Complete coach management
+- [ ] Complete medical management
+- [ ] Complete contract management
+- [ ] Registration management
+- [ ] Equipment management
+- [ ] Advanced statistics
+- [ ] Complete role-based permissions
+- [ ] Audit logging
+- [ ] Production deployment
 
 ---
 
-# Roadmap
+## 🗺️ Roadmap
 
-Future versions may include:
-
-* Player transfer history
-* Contract expiration notifications
-* Medical examination alerts
-* Injury history
-* Attendance tracking
-* Training management
-* Match management
-* Player performance statistics
-* Goals and assists
-* Minutes played
-* Cards
-* Performance ratings
-* Scouting
-* Player reports
-* PDF reports
-* Excel exports
-* Notifications
-* Audit logs
-* Advanced permissions
-* REST API
-* Cloud deployment
-* Mobile application
+| Phase | Focus | Highlights |
+|---|---|---|
+| **Next** | Operations | Contract expiry notifications · medical alerts · injury history · transfer history |
+| **Soon** | Reporting | PDF reports · Excel exports · notifications · audit logs |
+| **Later** | Football analytics | Attendance · training · match management · goals, assists, minutes, cards, ratings · scouting |
+| **Vision** | Ecosystem | Advanced permissions · REST API · cloud deployment · mobile app |
 
 ---
 
-# Long-Term Vision
+## 🤝 Contributing
 
-The long-term goal is to develop a complete digital infrastructure for football club management in Egypt.
+Contributions, ideas and bug reports are welcome.
 
-The platform is intended to connect club administration, sporting operations, medical departments, financial management, academies, and player management in one centralized system.
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "Add your feature"`
+4. Push: `git push origin feature/your-feature`
+5. Open a Pull Request
 
-The architecture allows the platform to grow from a club management application into a larger football management ecosystem while maintaining strict separation between clubs.
+> Please make sure every new query respects **tenant isolation** (always scope by club).
 
 ---
 
-# License
+## 🌟 Long-Term Vision
 
-This project is currently intended for development and educational purposes.
+To build the complete digital infrastructure for football club management in Egypt, connecting
+administration, sporting operations, medical departments, finance, academies and player
+management in one system, while keeping strict separation between clubs.
 
+---
+
+## 📄 License
+
+Currently intended for development and educational purposes.
 A formal open-source license may be added in a future release.
 
 ---
 
-# Project
+<div align="center">
 
-**Egypt Football Club Management System**
+**⚽ Egypt Football Club Management System**
 
-A multi-tenant football management platform designed to help Egyptian football clubs manage their players, teams, academies, staff, medical operations, memberships, contracts, equipment, and statistics from one centralized system.
+*One platform. Multiple clubs. Isolated data. Centralized management.*
 
-**Core Principle:**
+Built with ❤️ for Egyptian football.
 
-> One platform. Multiple clubs. Isolated data. Centralized management.
+</div>
